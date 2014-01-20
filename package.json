@@ -40,6 +40,8 @@
   "keywords": [],
   "dependencies": {
     "promised-io": "~0.3.4",
-    "parse-api": "~0.3.0"
+    "node-parse-api": "~0.2.2",
+    "backbone": "~1.1.0",
+    "undefsafe": "0.0.2"
   }
 }

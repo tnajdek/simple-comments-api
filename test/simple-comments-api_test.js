@@ -1,13 +1,13 @@
 'use strict';
 
-var api = require('../lib/simple-comments-api.js'),
+var SimpleCommentsApi = require('../lib/simple-comments-api.js'),
 	Parse = require('node-parse-api').Parse,
 	Deferred = require("promised-io/promise").Deferred,
 	all = require("promised-io/promise").all,
 	_ = require('lodash'),
 	appId = process.env.PARSE_APP_ID,
 	masterKey = process.env.PARSE_MASTER_KEY,
-	testapp;
+	testapp, api;
 
 /*
 	======== A Handy Little Nodeunit Reference ========
@@ -60,6 +60,7 @@ exports['awesome'] = {
 			}
 		}
 
+		api = new SimpleCommentsApi(appId, masterKey);
 		testapp = new Parse(appId, masterKey);
 
 		//delete all entries in comments_queue
@@ -112,13 +113,15 @@ exports['awesome'] = {
 	},
 	canApproveComment: function(test) {
 		api.getQueuedComments().then(function(comments) {
-			var goodComment = comments.where({name: "tester"});
+			var goodComment = comments.findWhere({name: "tester"});
 			api.approveComment(goodComment).then(function(comment) {
-				testapp.findMany('comments_queue', {}, function(err, results) {
+				testapp.findMany('comments_queue', {}, function(err, query) {
+					var results = query.results;
 					test.equal(results.length, 1);
-					test.eqau(comment.get('name'), 'tester');
+					test.equal(comment.get('name'), 'tester');
 					test.equal(results[0].name, 'tester 2');
-					testapp.findMany('comments_approved', {}, function(err, results) {
+					testapp.findMany('comments_approved', {}, function(err, query) {
+						var results = query.results;
 						test.equal(results.length, 2);
 						test.done();
 					});
@@ -128,13 +131,15 @@ exports['awesome'] = {
 	},
 	canRejectComment: function(test) {
 		api.getQueuedComments().then(function(comments) {
-			var badComment = comments.where({name: "tester"});
+			var badComment = comments.findWhere({name: "tester"});
 			api.rejectComment(badComment).then(function(comment) {
-				testapp.findMany('comments_queue', {}, function(err, results) {
+				testapp.findMany('comments_queue', {}, function(err, query) {
+					var results = query.results;
 					test.equal(results.length, 1);
 					test.equal(comment.get('name'), 'tester');
 					test.equal(results[0].name, 'tester 2');
-					testapp.findMany('comments_approved', {}, function(err, results) {
+					testapp.findMany('comments_approved', {}, function(err, query) {
+						var results = query.results;
 						test.equal(results.length, 1);
 						test.done();
 					});
