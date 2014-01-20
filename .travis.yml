@@ -1,6 +1,10 @@
 language: node_js
 node_js:
-  - 0.8
-  - '0.10'
+- 0.8
+- '0.10'
 before_script:
-  - npm install -g grunt-cli
+- npm install -g grunt-cli
+env:
+  global:
+  - secure: RrmekO8tjYeWarb16z7x+tJg4c0D7GzdJv7wpvaoncwi1nCAYM+t/pB9BgwiGCYnMxowsQ9kbHvPNUZVmXTkM6K1S5yi8w9gEqI7vRRmCfU0Gi5pEndcxzb7FsbdBXXVez6/hYPBpbSrIJy8CeJPLe8RnjRf8zlFXlylBvPQu0Q=
+  - secure: Ra8VjdiN1X2tc5Xrev/XYOZYV4Jd/lZCXLPgvUTbh7nQEF00g0nr4dV8XXNVS9iqSk9Kp6bKZsxoZRvJeQajVZ9rlJ2azZHCMJOpQDClnpjs08IM7ZnHKmN65hPbNrS5KjM+6JdVPEAHQWNwBA+rhTZJDxgYznLKJzlvE5WRtFk=
