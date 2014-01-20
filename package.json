@@ -37,5 +37,9 @@
     "promised-io": "~0.3.4",
     "lodash": "~2.4.1"
   },
-  "keywords": []
+  "keywords": [],
+  "dependencies": {
+    "promised-io": "~0.3.4",
+    "parse-api": "~0.3.0"
+  }
 }
